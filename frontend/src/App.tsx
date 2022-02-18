@@ -1,46 +1,25 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState } from "react";
+import SearchField from "./components/SearchField/SearchField";
+import GraphView from "./components/GraphView/GraphView";
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [kanjiInput, setKanjiInput] = useState<string>("");
+  const [kanji, setKanji] = useState<undefined | KanjiInfo>();
+  const [graph, setGraph] = useState<undefined | GraphMatrix>();
 
-  useEffect(() => {
-    console.log(
-      `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}`
-    );
-
-    fetch(
-      `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  }, []);
+  // console.log(kanji);
+  // console.log(graph);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>{message}</h1>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Kanji Visualizer</h1>
+      <SearchField
+        kanjiInput={kanjiInput}
+        setKanjiInput={setKanjiInput}
+        setKanji={setKanji}
+        setGraph={setGraph}
+      ></SearchField>
+      <GraphView graphData={graph} setKanjiInput={setKanjiInput} />
     </div>
   );
 }
