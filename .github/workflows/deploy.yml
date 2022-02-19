@@ -3,7 +3,7 @@
 name: ECR
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
   ecr-push:
